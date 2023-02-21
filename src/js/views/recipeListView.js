@@ -25,6 +25,11 @@ class RecipeListView {
     }
     generateMarkup() {
         this.currentPage = 0;
+        if (this.data.length === 0) {
+            this.pageLeft.classList.add("no-display");
+            this.pageRight.classList.add('no-display');
+            return 0;
+        }
         this.pageLeft.classList.add("no-display");
         this.pageRight.classList.remove('no-display');
         this.parentElement.style.transform = "translateX(0%)";
