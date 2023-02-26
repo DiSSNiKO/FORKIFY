@@ -20,4 +20,4 @@ function toFraction(int) {
     }
 }
 
-export { toFraction, };
+export { toFraction };

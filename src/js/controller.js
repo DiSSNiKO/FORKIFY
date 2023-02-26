@@ -3,6 +3,7 @@
 import * as model from "./model.js";
 import recipeListView from "./views/recipeListView.js";
 import recipeView from "./views/recipeView.js";
+import loaderView from "./views/loaderView.js";
 
 //dom elements
 
@@ -17,17 +18,17 @@ import recipeView from "./views/recipeView.js";
 function pageButtonVisibility(left) {
   if (left) {
     if (recipeListView.currentPage === 0) {
-      recipeListView.pageLeft.classList.add("no-display");
+      recipeListView.pageLeft.classList.add("no-interaction");
     } else {
-      recipeListView.pageLeft.classList.remove("no-display");
-      recipeListView.pageRight.classList.remove("no-display");
+      recipeListView.pageLeft.classList.remove("no-interaction");
+      recipeListView.pageRight.classList.remove("no-interaction");
     }
   } else {
     if (recipeListView.currentPage === (Array.from(recipeListView.parentElement.childNodes).length) - 1) {
-      recipeListView.pageRight.classList.add("no-display");
+      recipeListView.pageRight.classList.add("no-interaction");
     } else {
-      recipeListView.pageRight.classList.remove("no-display");
-      recipeListView.pageLeft.classList.remove("no-display");
+      recipeListView.pageRight.classList.remove("no-interaction");
+      recipeListView.pageLeft.classList.remove("no-interaction");
     }
   }
 }
@@ -36,7 +37,10 @@ function pageButtonVisibility(left) {
 
 async function getRecipeList(searchKey) {
   try {
+    recipeListView.prepareParentForNewDOM();
+    loaderView.addLoadingSpinner(recipeListView.parentElement);
     await model.loadRecipeList(searchKey);
+    loaderView.removeLoadingSpinner(recipeListView.parentElement);
     recipeListView.render(model.state.currentRecipes);
   } catch (err) {
     alert('ERROR !! --> ' + err.toString());
@@ -45,8 +49,13 @@ async function getRecipeList(searchKey) {
 
 async function getRecipe(searchId) {
   try {
+    // recipeView.parentElement.innerHTML = '';
+    recipeView.onRecipeChange(true);
+    loaderView.addLoadingSpinner(recipeView.parentElement);
     await model.loadRecipe(searchId);
+    loaderView.removeLoadingSpinner(recipeView.parentElement);
     recipeView.render(model.state.loadedRecipe);
+    recipeView.onRecipeChange(false);
   } catch (err) {
     alert(`ara dzma racxa nitoa --> ${err}`)
   }
