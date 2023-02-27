@@ -384,10 +384,16 @@ header button>svg {
     width: var(--bookmarkbuttonsize);
     height: var(--bookmarkbuttonsize);
     cursor: pointer;
+    transition: all 0.2s;
+    
+}
+#bookmark-btn:hover > svg {
+    fill: aqua;
 }
 
 #bookmark-btn svg {
     fill: white;
+    transition: all 0.3s;
 }
 
 .serving-time-bookmark div {
@@ -420,6 +426,11 @@ header button>svg {
 
 .inc-dec-servings svg {
     margin: 0 5px;
+    transition: all 0.2s;
+    cursor: pointer;
+}
+.inc-dec-servings svg:hover {
+    transform: translateY(-3px) scale(1.1);
 }
 
 .image-and-title {

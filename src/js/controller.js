@@ -64,6 +64,8 @@ async function getRecipe(searchId) {
 //event listeners
 
 
+//recipeListView
+
 recipeListView.searchForm.addEventListener('submit', (e) => {
   e.preventDefault();
   const value = recipeListView.searchFormInput.value;
@@ -93,3 +95,7 @@ recipeListView.pageLeft.addEventListener('click', () => {
     pageButtonVisibility(true);
   }
 });
+
+//recipeView
+
+
