@@ -1,7 +1,8 @@
 export const state = {
     loadedRecipe: {},
     currentRecipes: [],
-    bookmarks: []
+    bookmarks: [],
+    newRecipeModalToggled: false
 }
 export const loadRecipe = async function (searchId) {
     const request = await fetch(`https://forkify-api.herokuapp.com/api/v2/recipes/${searchId}`);

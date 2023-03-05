@@ -1,5 +1,6 @@
 function toFraction(int) {
     const strint = int.toString();
+    console.log(int)
     let fractionPart = '';
     let wholePart = '';
     let pointIndex = 0;

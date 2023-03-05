@@ -4,6 +4,8 @@ import * as model from "./model.js";
 import recipeListView from "./views/recipeListView.js";
 import recipeView from "./views/recipeView.js";
 import loaderView from "./views/loaderView.js";
+import bookmarkListView from "./views/bookmarkListView.js";
+import newRecipeView from "./views/newRecipeView.js";
 
 //dom elements
 
@@ -55,6 +57,7 @@ async function getRecipe(searchId) {
     await model.loadRecipe(searchId);
     loaderView.removeLoadingSpinner(recipeView.parentElement);
     recipeView.render(model.state.loadedRecipe);
+    recipeView.checkBookmarked(model.state.bookmarks, recipeView.data.title);
     recipeView.onRecipeChange(false);
   } catch (err) {
     alert(`ara dzma racxa nitoa --> ${err}`)
@@ -74,7 +77,7 @@ recipeListView.searchForm.addEventListener('submit', (e) => {
 });
 recipeListView.parentElement.addEventListener('click', (e) => {
   e = e.target;
-  if (!e.classList.contains('recipe-list')) {
+  if (!(e.classList.contains('recipe-list')||e.classList.contains('pagenation-part'))) {
     const value = e.closest('.available-recipe').dataset.recipeId;
     getRecipe(value);
   }
@@ -98,4 +101,50 @@ recipeListView.pageLeft.addEventListener('click', () => {
 
 //recipeView
 
+recipeView.parentElement.addEventListener('click',(e)=>{
+  const mainButton = e.target.closest('button');
+  if(mainButton){
+    if(mainButton.id==='bookmark-btn'){
+      model.state.bookmarks = recipeView.handleBookmarks(model.state.bookmarks);
+      recipeView.checkBookmarked(model.state.bookmarks, recipeView.data.title);
+  }
+  bookmarkListView.generateHTML(model.state.bookmarks); 
+}});
 
+//bookmarksView
+
+bookmarkListView.showBKmarks.addEventListener('click', ()=>{
+  bookmarkListView.showBookmarks(bookmarkListView.parentElement);
+});
+
+bookmarkListView.generateHTML(model.state.bookmarks); //initial state
+
+model.state.newRecipeModalToggled = newRecipeView.toggleModalAndReturnNewState(model.state.newRecipeModalToggled);
+
+bookmarkListView.parentElement.addEventListener('click',(e)=>{
+  e = e.target;
+  if (!e.classList.contains('bookmarked-recipes-cont')) {
+    const value = e.closest('.available-recipe').dataset.recipeId;
+    getRecipe(value);
+  }
+});
+
+//newRecipeView
+
+newRecipeView.addRecipeButton.addEventListener('click', ()=> {
+  model.state.newRecipeModalToggled = newRecipeView.toggleModalAndReturnNewState(model.state.newRecipeModalToggled);
+});
+
+newRecipeView.modalBackground.addEventListener('transitionend', ()=>{
+  if(!model.state.newRecipeModalToggled){
+    newRecipeView.modalBackground.classList.add('no-display-pseudo');
+  }
+});
+
+const plswork = newRecipeView.toggleModalAndReturnNewState.bind(newRecipeView);
+
+newRecipeView.modalBackground.addEventListener('click', (e)=>{
+  if(e.target.classList.contains('new-recipe-overlay')){
+    model.state.newRecipeModalToggled = plswork(model.state.newRecipeModalToggled);
+  }
+})

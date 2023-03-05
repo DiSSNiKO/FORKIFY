@@ -1,5 +1,4 @@
 import { toFraction } from "../utilities.js";
-import * as model from "../model";
 
 class RecipeView {
     parentElement = document.querySelector('.recipe-details');
@@ -14,6 +13,7 @@ class RecipeView {
         this.increaseServ = this.parentElement.querySelector(".increase-servings");
         this.decreaseServ = this.parentElement.querySelector(".decrease-servings");
         this.ingredientList = this.parentElement.querySelector(".ingredient-list");
+        this.bookmarkButton = this.parentElement.querySelector("#bookmark-btn");
         this.servingDisplay = this.parentElement.querySelector(".serving-size-cont").querySelector('strong');
         this.decreaseServ.addEventListener('click',()=>{
             this.changeServingSize(false);
@@ -22,12 +22,16 @@ class RecipeView {
             this.changeServingSize(true);
         });
     }
-    handleBookmarks(){
+    handleBookmarks(bookmarkObject){
         const bookmarkData = {
-            ...model.state.bookmarks
+            ...bookmarkObject
         }
-        bookmarkData[`${this.data.title}`] = this.data;
-        model.state.bookmarks = bookmarkData;
+        if (!bookmarkData[`${this.data.title}`]){
+            bookmarkData[`${this.data.title}`] = this.data;
+        } else {
+            delete bookmarkData[`${this.data.title}`];
+        }
+        return bookmarkData;
     }
     clearRecipe() {
         this.parentElement.innerHTML = "";
@@ -39,7 +43,7 @@ class RecipeView {
             this.servingDisplay.textContent = this.servingAmount;
             this.data.ingredients.forEach((ingredient) => {
                 let loneServing = (ingredient.quantity/this.data.servings);
-                ingredientListInnerHTML += `<span><svg><use href="src/img/icons.svgicon-check"></use></svg>${ingredient.quantity != null ? toFraction(loneServing*this.servingAmount) + " " : " "}${ingredient.unit + " "}${ingredient.description}</span>\n`
+                ingredientListInnerHTML += `<span><svg><use href="src/img/icons.svgicon-check"></use></svg>${ingredient.quantity != null ? toFraction(Number(loneServing*this.servingAmount).toFixed(2)) + " " : " "}${ingredient.unit + " "}${ingredient.description}</span>\n`
             });
             this.ingredientList.innerHTML=ingredientListInnerHTML;
         } else {
@@ -48,7 +52,7 @@ class RecipeView {
                 this.servingDisplay.textContent = this.servingAmount;
                 this.data.ingredients.forEach((ingredient) => {
                     let loneServing = (ingredient.quantity/this.data.servings);
-                    ingredientListInnerHTML += `<span><svg><use href="src/img/icons.svgicon-check"></use></svg>${ingredient.quantity != null ? toFraction(loneServing*this.servingAmount) + " " : " "}${ingredient.unit + " "}${ingredient.description}</span>\n`
+                    ingredientListInnerHTML += `<span><svg><use href="src/img/icons.svgicon-check"></use></svg>${ingredient.quantity != null ? toFraction(Number(loneServing*this.servingAmount).toFixed(2)) + " " : " "}${ingredient.unit + " "}${ingredient.description}</span>\n`
                 });
                 this.ingredientList.innerHTML=ingredientListInnerHTML;
             }
@@ -66,12 +70,19 @@ class RecipeView {
                 this.decreaseServ.removeEventListener('click', ()=>{
                     this.changeServingSize(false)
                 });
-                this.bookmarkButton.removeEventListener('click', this.handleBookmarks)
             }
         } else {
             this.parentElement.classList.remove('invisible-content');
             this.parentElement.style.userSelect = 'auto';
             this.parentElement.style.pointerEvents = 'auto';
+        }
+    }
+    checkBookmarked(bookmarksObject, currentRecipe){
+        const esvigee =  this.bookmarkButton.querySelector('svg');
+        if(bookmarksObject[currentRecipe]){
+           esvigee.style.fill='aqua'
+        } else {
+            esvigee.style.fill='white'
         }
     }
     generateMarkup() {

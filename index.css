@@ -2,7 +2,7 @@
     --headerbtntext: 1.4rem;
     --headersvgsize: 3rem;
     --inputplaceholdersize: 1.8rem;
-    --maincontwidthheight: 110rem;
+    --maincontwidthheight: 120rem;
     --availablercpimgsize: 6rem;
     --bookmarkbuttonsize: 4.5rem;
     --cooktimesize: 2rem;
@@ -41,6 +41,9 @@ body {
     box-shadow: 0px 0px 30px 1px rgba(0, 0, 0, 0.15);
 }
 
+.transparency {
+    opacity: 0 !important;
+}
 @keyframes loading {
     100% {
         transform: rotate(360deg);
@@ -117,10 +120,15 @@ main {
     display: flex;
     min-height: calc(var(--maincontwidthheight) - 10rem);
     position: relative;
+    z-index: 4;
 }
 
 .no-display {
     display: none !important;
+}
+
+.no-display-pseudo {
+    z-index: -1 !important;
 }
 
 .no-interaction {
@@ -128,11 +136,14 @@ main {
     pointer-events: none;
     opacity: 0.5;
 }
+.disabled {
+    user-select: none;
+    pointer-events: none;
+}
 
 /* HEADER */
 header {
     background-color: rgb(250, 245, 245);
-    overflow: hidden;
     display: flex;
     height: 10rem;
     justify-content: space-around;
@@ -212,6 +223,8 @@ header button>svg {
 .recipe-and-bookmark-cont {
     display: flex;
     height: 100%;
+    position: relative;
+    z-index: 11;
 }
 
 .recipe-and-bookmark-cont button {
@@ -228,7 +241,35 @@ header button>svg {
     cursor: pointer;
     transition: all 0.2s;
 }
-
+.bookmarked-recipes-cont {
+    max-height: 0px;
+    min-height: 0px;
+    background-color: rgb(250, 245, 245);
+    position: absolute;
+    top: 98px;
+    overflow-y: scroll;
+    transition: all 0.3s linear;
+    width: 100%;
+    box-shadow: 0px 10px 15px 0px rgba(0, 0, 0, 0.1);
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+.bookmarked-recipes-cont::-webkit-scrollbar {
+    display: none;
+}
+.no-bookmarks-question-mark {
+    display: flex;
+    font-size: var(--ingredientfontsizetitle);
+    color: orange;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    height: 300px;
+}
+.bookmarks-on {
+    min-height: 300px;
+    max-height: 300px;
+}
 .recipe-and-bookmark-cont button svg {
     fill: rgba(255, 60, 0, 0.6);
 }
@@ -280,7 +321,9 @@ header button>svg {
 .recipe-list::-webkit-scrollbar {
     display: none;
 }
-
+.bookmarked-recipes-cont > .available-recipe:hover {
+    background-color: white;
+}
 .available-recipe img {
     height: var(--availablercpimgsize);
     width: var(--availablercpimgsize);
@@ -342,10 +385,6 @@ header button>svg {
 .page-left svg {
     margin-right: 5px;
 }
-
-.page-left {}
-
-.page-right {}
 
 .page-right svg {
     margin-left: 5px;
@@ -549,4 +588,80 @@ header button>svg {
     width: var(--ingredientcheckmarksize);
     height: var(--ingredientcheckmarksize);
     margin-left: 5px;
+}
+/* add new recipe */
+
+.new-recipe-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 15;
+    transition: opacity 0.3s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(5px);
+}
+.new-recipe-overlay * {
+    transition: opacity 0.3s;
+}
+
+.add-recipe-modal {
+    width: 1100px;
+    height: 600px;
+    border-radius: 10px;
+    background-color: white;
+}
+.add-recipe-modal-inputs {
+    display: flex;
+    height: 500px;
+}
+.add-recipe-modal-inputs > div {
+    width: 50%;
+    padding: 3rem 5rem 3rem ;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.add-recipe-modal-inputs > div > h1 {
+    font-size: 3rem;
+}
+.input-name-and-input {
+    display: flex;
+    justify-content: space-between;
+}
+.input-name-and-input h1 {
+    color: rgb(80, 80, 80);
+}
+.input-name-and-input input {
+    border-radius: 4px;
+    outline: none;
+    height: 30px;
+    width: 60%;
+    font-size: 2rem;
+    border: 1px solid grey;
+    transition: all 0.2s;
+}
+.input-name-and-input input:hover {
+    background-color: rgba(255, 166, 0, 0.15);
+}
+.input-name-and-input input:focus {
+    background-color: rgba(255, 166, 0, 0.15);
+}
+.general-button-style {
+    display: flex;
+    justify-content: center;
+    font-size: var(--ingredientfontsize);
+    padding: 2rem;
+    color: white;
+    font-weight: 600;
+    border-radius: 35px;
+    text-decoration: none;
+    outline: none;
+    background: linear-gradient(to right, rgb(255, 190, 69), rgb(255, 94, 0));
+    width: 100px;
+    margin: auto;
 }

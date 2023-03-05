@@ -15,7 +15,67 @@
 </head>
 
 <body>
-
+  <div class="new-recipe-overlay no-display-pseudo">
+    <div class="add-recipe-modal">
+      <div class="add-recipe-modal-inputs"> 
+        <div>
+          <h1>RECIPE DATA</h1>
+          <div class="input-name-and-input">
+            <h1>Title</h1>
+            <input type="text" id="new-recipe-title-input"/>
+          </div>
+          <div class="input-name-and-input">
+            <h1>URL</h1>
+            <input type="text" id="new-recipe-url-input"/>
+          </div>
+          <div class="input-name-and-input" >
+            <h1>Image URL</h1>
+            <input type="text" id="new-recipe-imageurl-input"/>
+          </div>
+          <div class="input-name-and-input">
+            <h1>Publisher</h1>
+            <input type="text" id="new-recipe-publisher-input"/>
+          </div>
+          <div class="input-name-and-input">
+            <h1>Prep time</h1>
+            <input type="text" id="new-recipe-preptime-input"/>
+          </div>
+          <div class="input-name-and-input">
+            <h1>Servings</h1>
+            <input type="text" id="new-recipe-servings-input"/>
+          </div>
+        </div>
+        <div>
+          <h1>INGREDIENTS</h1>
+          <div class="input-name-and-input">
+            <h1>Ingredient 1</h1>
+            <input type="text" id="new-recipe-ingredient-1"/>
+          </div>
+          <div class="input-name-and-input">
+            <h1>Ingredient 2</h1>
+            <input type="text" id="new-recipe-ingredient-2"/>
+          </div>
+          <div class="input-name-and-input">
+            <h1>Ingredient 3</h1>
+            <input type="text" id="new-recipe-ingredient-3"/>
+          </div>
+          <div class="input-name-and-input">
+            <h1>Ingredient 4</h1>
+            <input type="text" id="new-recipe-ingredient-4"/>
+          </div>
+          <div class="input-name-and-input">
+            <h1>Ingredient 5</h1>
+            <input type="text" id="new-recipe-ingredient-5"/>
+          </div>
+          <div class="input-name-and-input">
+            <h1>Ingredient 6</h1>
+            <input type="text" id="new-recipe-ingredient-6"/>
+          </div>
+        </div>
+      </div>
+      <a class="general-button-style" href="https://www.youtube.com/watch?v=UOxkGD8qRB4&list=RDMM&index=20">UPLOAD</a>
+    </div>
+  </div>
   <div class="mainCont">
     <header>
       <img id="forkify-logo" src="src/img/logo.png" alt="">
@@ -31,7 +91,11 @@
           </svg>ADD RECIPE</button>
         <button id="show-bookmarks-btn"><svg>
             <use href="src/img/icons.svg#icon-bookmark"></use>
-          </svg>BOOKMARKS</button>
+          </svg>BOOKMARKS
+        </button>
+        <div class="bookmarked-recipes-cont">
+          
+        </div>
       </div>
     </header>
     <main>
