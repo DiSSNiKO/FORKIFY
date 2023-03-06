@@ -2,7 +2,7 @@
     --headerbtntext: 1.4rem;
     --headersvgsize: 3rem;
     --inputplaceholdersize: 1.8rem;
-    --maincontwidthheight: 120rem;
+    --maincontwidthheight: 130rem;
     --availablercpimgsize: 6rem;
     --bookmarkbuttonsize: 4.5rem;
     --cooktimesize: 2rem;
@@ -610,7 +610,7 @@ header button>svg {
 }
 
 .add-recipe-modal {
-    width: 1100px;
+    width: 1200px;
     height: 600px;
     border-radius: 10px;
     background-color: white;
@@ -640,8 +640,8 @@ header button>svg {
     border-radius: 4px;
     outline: none;
     height: 30px;
-    width: 60%;
-    font-size: 2rem;
+    width: 65%;
+    font-size: 1.8rem;
     border: 1px solid grey;
     transition: all 0.2s;
 }
