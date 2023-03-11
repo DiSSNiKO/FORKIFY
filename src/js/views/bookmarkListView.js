@@ -1,4 +1,11 @@
 class bookmarkView {
+    
+    constructor () {
+        this.showBKmarks.addEventListener('click', ()=>{
+            this.showBookmarks(this.parentElement);
+        });          
+    }
+
     parentElement = document.querySelector(".bookmarked-recipes-cont");
     showBKmarks = document.querySelector("#show-bookmarks-btn");
 

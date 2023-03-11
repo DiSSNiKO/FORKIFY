@@ -1,6 +1,5 @@
 function toFraction(int) {
     const strint = int.toString();
-    console.log(int)
     let fractionPart = '';
     let wholePart = '';
     let pointIndex = 0;
@@ -31,6 +30,9 @@ function toFractionFloat(int){
     return `${removeTrailingZeroes(intStr[1])}/${divideBy}`
 }
 function weakShekveca(gasayofi, gamyofi) {
+    if(gamyofi===''||gasayofi===''){
+        return '';
+    }
     const divisors = [2,3,4,5,6,7,8,9];
     let newGasayofi = Number(gasayofi);
     let newGamyofi = Number(gamyofi);
@@ -62,5 +64,14 @@ function removeTrailingZeroes (str){
     });
     return newstr
 }
+const removeWhiteSpace = (str) => {
+    let newstr = ''
+    for(const char of str){
+        if(char!==' '){
+            newstr+=char;
+        }
+    }
+    return newstr;
+}
 
-export { toFraction, weakShekveca, toFractionFloat };
+export { toFraction, weakShekveca, toFractionFloat, removeWhiteSpace };

@@ -10,6 +10,22 @@ class RecipeListView {
         this.searchFormInput = this.searchForm.querySelector('input');
         // ^
         this.currentPage = 0;
+        this.pageRight.addEventListener('click', () => {
+            if (!(this.currentPage >= (Array.from(this.parentElement.childNodes).length) - 1)) {
+              this.currentPage++;
+              const translation = this.currentPage * 100;
+              this.parentElement.style.transform = `translateX(${-translation}%)`;
+              this.pageButtonVisibility(false);
+            }
+        });
+        this.pageLeft.addEventListener('click', () => {
+          if (this.currentPage - 1 !== -1) {
+            this.currentPage--;
+            const translation = this.currentPage * 100;
+            this.parentElement.style.transform = `translateX(${-translation}%)`;
+            this.pageButtonVisibility(true);
+          }
+        });
     }
 
 
@@ -39,7 +55,11 @@ class RecipeListView {
         this.pageRight.classList.remove('no-interaction');
         let eichteaml = ``;
         let currentRecipeSet = 0;
-        const RecipesPerSet = 8;
+        let RecipesPerSet = 8;
+        console.log(window.innerWidth)
+        if(window.innerWidth <= 840){
+          RecipesPerSet = 3;
+        }
         this.data.forEach((recipe) => {
             eichteaml += `
             <div class="available-recipe" data-recipe-id=${recipe.id}><img src=${recipe.image_url} alt="Image"><div><h1>${recipe.title}</h1><h2>${recipe.publisher}</h2></div></div>`;
@@ -65,5 +85,24 @@ class RecipeListView {
         this.parentElement.style.transition = 'all 0.3s'
 
     }
+    pageButtonVisibility(left) {
+        if (left) {
+          if (this.currentPage === 0) {
+            this.pageLeft.classList.add("no-interaction");
+            this.pageRight.classList.remove("no-interaction");
+          } else {
+            this.pageLeft.classList.remove("no-interaction");
+            this.pageRight.classList.remove("no-interaction");
+          }
+        } else {
+          if (this.currentPage === (Array.from(this.parentElement.childNodes).length) - 1) {
+            this.pageRight.classList.add("no-interaction");
+            this.pageLeft.classList.remove("no-interaction");
+          } else {
+            this.pageRight.classList.remove("no-interaction");
+            this.pageLeft.classList.remove("no-interaction");
+          }
+        }
+      }
 }
 export default new RecipeListView();
