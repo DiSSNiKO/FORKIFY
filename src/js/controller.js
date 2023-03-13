@@ -13,13 +13,23 @@ import newRecipeView from "./views/newRecipeView.js";
 
 //API functions
 
+async function recipeListDataAndRender (searchKey) {
+  loaderView.addLoadingSpinner(recipeListView.parentElement.closest(".recipe-list-cont"));
+  await model.loadRecipeList(searchKey);
+  loaderView.removeLoadingSpinner(recipeListView.parentElement.closest(".recipe-list-cont"));
+  recipeListView.render(model.state.currentRecipes);
+}
+
 async function getRecipeList(searchKey) {
   try {
-    recipeListView.prepareParentForNewDOM();
-    loaderView.addLoadingSpinner(recipeListView.parentElement);
-    await model.loadRecipeList(searchKey);
-    loaderView.removeLoadingSpinner(recipeListView.parentElement);
-    recipeListView.render(model.state.currentRecipes);
+    if(recipeListView.parentElement.children.length>0){
+      console.log(recipeListView.parentElement.children)
+      recipeListView.animateOutAndRenderNew(recipeListDataAndRender, searchKey);
+    } else {
+      recipeListView.prepareParentForNewDOM();
+      recipeListDataAndRender(searchKey);
+    }
+    
   } catch (err) {
     alert('ERROR !! --> ' + err.toString());
   }
