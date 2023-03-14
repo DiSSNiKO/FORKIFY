@@ -35,10 +35,8 @@ async function getRecipeList(searchKey) {
 }
 
 
-async function getRecipeAid(searchId){
+async function getRecipeAid(){
   loaderView.addLoadingSpinner(recipeView.parentElement);
-  console.log(recipeView.parentElement)
-  await model.loadRecipe(searchId);
   console.log(recipeView.parentElement)
   loaderView.removeLoadingSpinner(recipeView.parentElement);
   recipeView.render(model.state.loadedRecipe);
@@ -48,14 +46,11 @@ async function getRecipeAid(searchId){
 }
 async function getRecipe(searchId) {
   try {
-    if(recipeView.parentElement.children.length<1){
-      getRecipeAid(searchId);
-    } else {
-      recipeView.onRecipeChange(true);
-      recipeView.parentElement.addEventListener('transitionend', async function(){
-        getRecipeAid(searchId);
-      },{once:true});
-    }
+    await model.loadRecipe(searchId);
+    recipeView.onRecipeChange(true);
+    recipeView.parentElement.addEventListener('transitionend', async function(){
+      getRecipeAid(searchId); 
+    },{once:true});
     
   } catch (err) {
     alert(`ara dzma racxa nitoa --> ${err}`)
@@ -109,4 +104,4 @@ bookmarkListView.parentElement.addEventListener('click',(e)=>{
 //Set initial state where needed
 bookmarkListView.generateHTML(model.state.bookmarks);
 newRecipeView.toggleModalAndReturnNewState(newRecipeView.newRecipeModalToggled);
-recipeView.parentElement.classList.add('transparency');
+// recipeView.parentElement.classList.add('transparency');
