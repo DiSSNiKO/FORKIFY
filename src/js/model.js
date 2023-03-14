@@ -13,7 +13,6 @@ export const loadRecipe = async function (searchId) {
     } else {
         state.loadedRecipe = data.data.recipe;
     }
-    console.log(state)
 }
 
 export const loadRecipeList = async function (searchKey) {

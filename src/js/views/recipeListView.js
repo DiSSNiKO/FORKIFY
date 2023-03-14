@@ -45,6 +45,7 @@ class RecipeListView {
       this.parentElement.style.transform = "translateX(100%)";
       this.parentElement.style.pointerEvents = 'auto';
     }
+    //Handles the entry animation for recipe list and the pagenation buttons
     animateIn(){ 
       const handlePageButtons = function() {
         if (Array.from(this.parentElement.childNodes).length === 1) {
@@ -52,6 +53,7 @@ class RecipeListView {
         } else {
           this.pageRight.classList.remove('no-interaction');
         }
+        this.pagination.classList.remove('no-interaction-harsh');
         this.parentElement.style.pointerEvents = 'auto';
         this.parentElement.style.transition = 'all 0.3s';
       }
@@ -65,9 +67,9 @@ class RecipeListView {
       this.parentElement.style.overflowX = 'visible';
       this.parentElement.style.width = "auto";
     }
+    //Handles the leave animation for recipe list and the pagenation buttons
     animateOutAndRenderNew (leFunqcion, searchKey){
-      this.pageLeft.classList.add('no-interaction');
-      this.pageRight.classList.add('no-interaction');
+      this.pagination.classList.add('no-interaction-harsh');
       const handleLeaveAnim = function() {
         this.prepareParentForNewDOM();
         leFunqcion(searchKey);
@@ -123,8 +125,7 @@ class RecipeListView {
         Array.from(this.parentElement.childNodes).forEach((elem, index) => {
             elem.dataset.pageId = index;
         });
-        
-        this.pagination.classList.remove('no-display');
+        this.pagination.classList.remove('no-interaction-harsh');
         this.animateIn();
 
       }

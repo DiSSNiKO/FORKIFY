@@ -23,7 +23,6 @@ async function recipeListDataAndRender (searchKey) {
 async function getRecipeList(searchKey) {
   try {
     if(recipeListView.parentElement.children.length>0){
-      console.log(recipeListView.parentElement.children)
       recipeListView.animateOutAndRenderNew(recipeListDataAndRender, searchKey);
     } else {
       recipeListView.prepareParentForNewDOM();
@@ -35,16 +34,29 @@ async function getRecipeList(searchKey) {
   }
 }
 
+
+async function getRecipeAid(searchId){
+  loaderView.addLoadingSpinner(recipeView.parentElement);
+  console.log(recipeView.parentElement)
+  await model.loadRecipe(searchId);
+  console.log(recipeView.parentElement)
+  loaderView.removeLoadingSpinner(recipeView.parentElement);
+  recipeView.render(model.state.loadedRecipe);
+  recipeView.checkBookmarked(model.state.bookmarks, recipeView.data.title);
+  console.log(recipeView.parentElement)
+  recipeView.onRecipeChange(false);
+}
 async function getRecipe(searchId) {
   try {
-    // recipeView.parentElement.innerHTML = '';
-    recipeView.onRecipeChange(true);
-    loaderView.addLoadingSpinner(recipeView.parentElement);
-    await model.loadRecipe(searchId);
-    loaderView.removeLoadingSpinner(recipeView.parentElement);
-    recipeView.render(model.state.loadedRecipe);
-    recipeView.checkBookmarked(model.state.bookmarks, recipeView.data.title);
-    recipeView.onRecipeChange(false);
+    if(recipeView.parentElement.children.length<1){
+      getRecipeAid(searchId);
+    } else {
+      recipeView.onRecipeChange(true);
+      recipeView.parentElement.addEventListener('transitionend', async function(){
+        getRecipeAid(searchId);
+      },{once:true});
+    }
+    
   } catch (err) {
     alert(`ara dzma racxa nitoa --> ${err}`)
   }
@@ -97,3 +109,4 @@ bookmarkListView.parentElement.addEventListener('click',(e)=>{
 //Set initial state where needed
 bookmarkListView.generateHTML(model.state.bookmarks);
 newRecipeView.toggleModalAndReturnNewState(newRecipeView.newRecipeModalToggled);
+recipeView.parentElement.classList.add('transparency');

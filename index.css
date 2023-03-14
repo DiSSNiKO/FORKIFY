@@ -43,7 +43,7 @@ body {
 }
 
 .transparency {
-    opacity: 0 !important;
+    opacity: 0;
 }
 @keyframes loading {
     100% {
@@ -52,7 +52,7 @@ body {
 }
 
 .invisible-content *:not(.loader, .loadspinnergeneral) {
-    opacity: 0;
+    opacity: 0 !important;
 }
 
 .loader {
@@ -376,6 +376,7 @@ header button>svg {
 .pagination-cont {
     width: 100%;
     position: absolute;
+    transition: all 1s;
     bottom: 0;
     left: 0;
     padding: 2.5rem 0;
@@ -420,7 +421,9 @@ header button>svg {
 .recipe-details {
     width: 60%;
     background-color: rgb(250, 245, 245);
+    transition: all 0.5s;
 }
+
 
 .image-and-bookmark {
     display: flex;

@@ -60,7 +60,7 @@ class RecipeView {
     }
     onRecipeChange(clearDisplay) {
         if (clearDisplay) {
-            this.parentElement.classList.add('invisible-content');
+            this.parentElement.classList.add('transparency');
             this.parentElement.style.userSelect = 'none';
             this.parentElement.style.pointerEvents = 'none';
             if(this.increaseServ){
@@ -72,7 +72,8 @@ class RecipeView {
                 });
             }
         } else {
-            this.parentElement.classList.remove('invisible-content');
+            console.log(this.parentElement.classList, this.parentElement)
+            this.parentElement.classList.remove('transparency');
             this.parentElement.style.userSelect = 'auto';
             this.parentElement.style.pointerEvents = 'auto';
         }
