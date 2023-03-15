@@ -421,7 +421,7 @@ header button>svg {
 .recipe-details {
     width: 60%;
     background-color: rgb(250, 245, 245);
-    /* transition: all 0.5s; */
+    user-select: none;
 }
 .recipe-details-transp-cont {
     transition: all 0.5s;

@@ -33,7 +33,9 @@ async function getRecipeList(searchKey) {
     alert('ERROR !! --> ' + err.toString());
   }
 }
+const bodei = document.querySelector('body');
 
+bodei.addEventListener('click', (e)=>{console.log(e.target)})
 
 async function getRecipeAid(searchId){
   loaderView.addLoadingSpinner(recipeView.topLevelElement);
@@ -96,8 +98,10 @@ recipeView.parentElement.addEventListener('click',(e)=>{
 bookmarkListView.parentElement.addEventListener('click',(e)=>{
   e = e.target;
   if (!e.classList.contains('bookmarked-recipes-cont')) {
-    const value = e.closest('.available-recipe').dataset.recipeId;
-    getRecipe(value);
+    if(e.closest('.available-recipe')){
+      const value = e.closest('.available-recipe').dataset.recipeId;
+      getRecipe(value);
+    };
   }
 });
 
