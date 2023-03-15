@@ -35,22 +35,25 @@ async function getRecipeList(searchKey) {
 }
 
 
-async function getRecipeAid(){
-  loaderView.addLoadingSpinner(recipeView.parentElement);
-  console.log(recipeView.parentElement)
-  loaderView.removeLoadingSpinner(recipeView.parentElement);
+async function getRecipeAid(searchId){
+  loaderView.addLoadingSpinner(recipeView.topLevelElement);
+  await model.loadRecipe(searchId);
+  loaderView.removeLoadingSpinner(recipeView.topLevelElement);
   recipeView.render(model.state.loadedRecipe);
   recipeView.checkBookmarked(model.state.bookmarks, recipeView.data.title);
-  console.log(recipeView.parentElement)
   recipeView.onRecipeChange(false);
 }
 async function getRecipe(searchId) {
   try {
-    await model.loadRecipe(searchId);
-    recipeView.onRecipeChange(true);
-    recipeView.parentElement.addEventListener('transitionend', async function(){
-      getRecipeAid(searchId); 
-    },{once:true});
+    if(recipeView.parentElement.children.length<1){
+      recipeView.onRecipeChange(true);
+      getRecipeAid(searchId);
+    } else {
+      recipeView.onRecipeChange(true);
+      recipeView.parentElement.addEventListener('transitionend', async function(){
+        getRecipeAid(searchId); 
+      },{once:true});
+    }
     
   } catch (err) {
     alert(`ara dzma racxa nitoa --> ${err}`)

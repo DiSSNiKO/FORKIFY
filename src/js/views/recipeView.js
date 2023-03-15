@@ -1,7 +1,8 @@
 import { toFraction } from "../utilities.js";
 
 class RecipeView {
-    parentElement = document.querySelector('.recipe-details');
+    parentElement = document.querySelector('.recipe-details-transp-cont');
+    topLevelElement = document.querySelector('.recipe-details');
     data;
     servingAmount = 1;
     render(data) {
@@ -72,7 +73,7 @@ class RecipeView {
                 });
             }
         } else {
-            console.log(this.parentElement.classList, this.parentElement)
+            console.log(this.parentElement)
             this.parentElement.classList.remove('transparency');
             this.parentElement.style.userSelect = 'auto';
             this.parentElement.style.pointerEvents = 'auto';
