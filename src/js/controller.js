@@ -35,7 +35,9 @@ async function getRecipeList(searchKey) {
 }
 const bodei = document.querySelector('body');
 
-bodei.addEventListener('click', (e)=>{console.log(e.target)})
+bodei.addEventListener('click', (e)=>{
+  bookmarkListView.dynamicClosing(e);
+})
 
 async function getRecipeAid(searchId){
   loaderView.addLoadingSpinner(recipeView.topLevelElement);

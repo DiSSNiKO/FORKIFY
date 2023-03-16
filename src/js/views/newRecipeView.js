@@ -46,11 +46,11 @@ class newRecipeView {
         }
         let ingredientFaults = 0
         for(let i = 5; i<12; i++){
-            if(!this.verifyIngredientFormat(removeWhiteSpace(this.inputArray[i].value))){
+            if(!this.verifyIngredientFormat(removeWhiteSpace(this.inputArray[i].value))&&!removeWhiteSpace(this.inputArray[i].value==="")){
                 ingredientFaults++;
             }
         }
-        if(ingredientFaults===6){ // all ingredients are incorrect
+        if(ingredientFaults>0){ // all ingredients are incorrect
             inputsValidated = false;
         }
         return inputsValidated;
