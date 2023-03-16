@@ -18,10 +18,10 @@ class newRecipeView {
         })
         this.uploadNewRecipeButton.addEventListener("click",(e)=>{
             e.preventDefault();
-            console.log(this.validateInputs());
+            this.uploadNewRecipe(`https://forkify-api.herokuapp.com/api/v2/recipes/?key=${this.apiKey}`)
         });
     }
-    apiKey = ''
+    apiKey = 'd3f6ec2c-57a8-4bc0-9734-08bcd91c9e5f';
     newRecipeModalToggled = false;
     parentElement = document.querySelector(".add-recipe-modal");
     modalBackground = this.parentElement.closest('.new-recipe-overlay');
@@ -87,7 +87,7 @@ class newRecipeView {
             return true;
         }
     }
-    uploadNewRecipe(){
+    uploadNewRecipe(url){
         if(this.validateInputs()){
             const newRecipeObject = {
                 cooking_time: null,
@@ -104,9 +104,15 @@ class newRecipeView {
             newRecipeObject.image_url = this.inputArray[2].value;
             newRecipeObject.publisher = this.inputArray[3].value;
             newRecipeObject.servings = +this.inputArray[5].value;
+            const postrequest = fetch(url, {
+                method:"POST",
+                headers: {
+                    'Content-Type':'application/json'
+                },
+                body: JSON.stringify(newRecipeObject)
+            }); 
+            postrequest.then(res => console.log(res));
         }
-        console.log(newRecipeObject); //The API no longer allows POST requests RIP ANYWAYS NODEJS HERE WE COMEEEEEEE
     }
 }
-
 export default new newRecipeView();

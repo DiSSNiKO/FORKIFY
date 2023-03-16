@@ -90,9 +90,11 @@ recipeView.parentElement.addEventListener('click',(e)=>{
   if(mainButton){
     if(mainButton.id==='bookmark-btn'){
       model.state.bookmarks = recipeView.handleBookmarks(model.state.bookmarks);
+      localStorage.setItem('jetboyforkifybookmarks',JSON.stringify  (model.state.bookmarks));
       recipeView.checkBookmarked(model.state.bookmarks, recipeView.data.title);
   }
-  bookmarkListView.generateHTML(model.state.bookmarks); 
+  bookmarkListView.generateHTML(model.state.bookmarks);
+  console.log(localStorage); 
 }});
 
 //bookmarksView
@@ -111,6 +113,10 @@ bookmarkListView.parentElement.addEventListener('click',(e)=>{
 
 
 //Set initial state where needed
+const bookmarksLocalStorage = JSON.parse(localStorage.getItem('jetboyforkifybookmarks'));
+if(Object.keys(bookmarksLocalStorage).length>0){
+  model.state.bookmarks = bookmarksLocalStorage;
+}
 bookmarkListView.generateHTML(model.state.bookmarks);
 newRecipeView.toggleModalAndReturnNewState(newRecipeView.newRecipeModalToggled);
 // recipeView.parentElement.classList.add('transparency');
