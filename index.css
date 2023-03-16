@@ -34,7 +34,7 @@ body {
 
 .mainCont {
     overflow: hidden;
-    background-color: white;
+    background-color: rgb(250, 245, 245);
     width: var(--maincontwidthheight);
     min-height: 1300px;
     margin: 0 auto;
@@ -302,6 +302,7 @@ header button>svg {
     width: 40%;
     overflow: hidden;
     position: relative;
+    background-color: white;
 }
 
 .recipe-list {
@@ -420,14 +421,34 @@ header button>svg {
 
 .recipe-details {
     width: 60%;
-    background-color: rgb(250, 245, 245);
     user-select: none;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 .recipe-details-transp-cont {
     transition: all 0.5s;
 }
+.search-a-recipe {
+    display: flex;
+    justify-content: center;
+    padding: 10rem 0;
 
-
+}
+.search-a-recipe img {
+    height: 10rem;
+    width: auto;
+    opacity: 1;
+}
+.search-a-recipe div {
+    display: flex;
+    align-items: center;
+    font-size: 2rem;
+    color: grey;
+    width: 50%;
+    text-align: center;
+}
 .image-and-bookmark {
     display: flex;
     flex-direction: column;

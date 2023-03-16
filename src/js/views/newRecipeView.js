@@ -40,7 +40,7 @@ class newRecipeView {
     validateInputs(){
         let inputsValidated = true;
         for(let i = 0; i<6; i++){
-            if(!this.verifyIngredientFormat(removeWhiteSpace(this.inputArray[i].value))){
+            if(!this.verifyIngredientFormat(removeWhiteSpace(this.inputArray[i].value))&&!removeWhiteSpace(this.inputArray[i].value==="")){
                 inputsValidated = false;
             }
         }
