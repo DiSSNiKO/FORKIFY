@@ -16,10 +16,10 @@ class newRecipeView {
                 this.newRecipeModalToggled = this.toggleModalAndReturnNewState(true);
             }
         })
-        this.uploadNewRecipeButton.addEventListener("click",(e)=>{
-            e.preventDefault();
-            this.uploadNewRecipe(`https://forkify-api.herokuapp.com/api/v2/recipes/?key=${this.apiKey}`)
-        });
+        // this.uploadNewRecipeButton.addEventListener("click",(e)=>{
+        //     e.preventDefault();
+        //     this.uploadNewRecipe(`https://forkify-api.herokuapp.com/api/v2/recipes/?key=${this.apiKey}`)
+        // });
     }
     apiKey = 'd3f6ec2c-57a8-4bc0-9734-08bcd91c9e5f';
     newRecipeModalToggled = false;
@@ -111,7 +111,6 @@ class newRecipeView {
                 },
                 body: JSON.stringify(newRecipeObject)
             }); 
-            postrequest.then(res => console.log(res));
         }
     }
 }

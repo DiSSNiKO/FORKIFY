@@ -73,7 +73,6 @@ class RecipeView {
                 });
             }
         } else {
-            console.log(this.parentElement)
             this.parentElement.classList.remove('transparency');
             this.parentElement.style.userSelect = 'auto';
             this.parentElement.style.pointerEvents = 'auto';

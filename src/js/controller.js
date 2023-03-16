@@ -94,7 +94,6 @@ recipeView.parentElement.addEventListener('click',(e)=>{
       recipeView.checkBookmarked(model.state.bookmarks, recipeView.data.title);
   }
   bookmarkListView.generateHTML(model.state.bookmarks);
-  console.log(localStorage); 
 }});
 
 //bookmarksView
